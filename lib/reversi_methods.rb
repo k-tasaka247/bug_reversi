@@ -41,13 +41,14 @@ module ReversiMethods
   end
 
   def put_stone(board, cell_ref, stone_color, dry_run: false)
+    binding.irb
     pos = Position.new(cell_ref)
     raise '無効なポジションです' if pos.invalid?
     raise 'すでに石が置かれています' unless pos.stone_color(board) == BLANK_CELL
 
     # コピーした盤面にて石の配置を試みて、成功すれば反映する
     copied_board = Marshal.load(Marshal.dump(board))
-    copied_board[pos.col][pos.row] = stone_color
+    copied_board[pos.row][pos.col] = stone_color
 
     turn_succeed = false
     Position::DIRECTIONS.each do |direction|
@@ -78,6 +79,7 @@ module ReversiMethods
   end
 
   def placeable?(board, attack_stone_color)
+    # binding.irb
     board.each_with_index do |cols, row|
       cols.each_with_index do |cell, col|
         next unless cell == BLANK_CELL
@@ -90,5 +92,15 @@ module ReversiMethods
 
   def count_stone(board, stone_color)
     board.flatten.count { |cell| cell == stone_color }
+  end
+  
+  def build_board(board_text)
+    board = build_initial_board
+    board_text.split("\n").each_with_index do |row, i|
+      row.each_char.with_index do |cell, j|
+        board[i][j] = cell
+      end
+    end
+    board
   end
 end
