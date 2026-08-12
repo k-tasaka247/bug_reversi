@@ -82,7 +82,6 @@ module ReversiMethods
   def placeable?(board, attack_stone_color)
     board.each_with_index do |cols, row|
       cols.each_with_index do |cell, col|
-
         next unless cell == BLANK_CELL
 
         position = Position.new(row, col)
@@ -95,7 +94,7 @@ module ReversiMethods
   def count_stone(board, stone_color)
     board.flatten.count { |cell| cell == stone_color }
   end
-  
+
   def build_board(board_text)
     board = build_initial_board
     board_text.split("\n").each_with_index do |row, i|
