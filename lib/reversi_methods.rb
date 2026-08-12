@@ -76,7 +76,6 @@ module ReversiMethods
 
   def finished?(board)
     !placeable?(board, WHITE_STONE) && !placeable?(board, BLACK_STONE)
-    # binding.break
   end
 
   def placeable?(board, attack_stone_color)
