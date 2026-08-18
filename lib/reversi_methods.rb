@@ -93,14 +93,4 @@ module ReversiMethods
   def count_stone(board, stone_color)
     board.flatten.count { |cell| cell == stone_color }
   end
-
-  def build_board(board_text)
-    board = build_initial_board
-    board_text.split("\n").each_with_index do |row, i|
-      row.each_char.with_index do |cell, j|
-        board[i][j] = cell
-      end
-    end
-    board
-  end
 end
